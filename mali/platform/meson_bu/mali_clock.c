@@ -28,6 +28,9 @@ MODULE_PARM_DESC(gpu_dbg_level, "gpu debug level");
 		gpu_dbg(1, "line(%d), clk_cntl=0x%08x\n" fmt, __LINE__, mplt_read(HHI_MALI_CLK_CNTL), ## arg);\
 	} while (0)
 
+//disable print
+#define _dev_info(...)
+
 //static DEFINE_SPINLOCK(lock);
 static mali_plat_info_t* pmali_plat = NULL;
 //static u32 mali_extr_backup = 0;
@@ -213,6 +216,7 @@ int mali_dt_info(struct platform_device *pdev, struct mali_plat_info_t *mpdata)
 		mpdata->cfg_pp = 6;
 	}
 	mpdata->scale_info.maxpp = mpdata->cfg_pp;
+	mpdata->maxpp_sysfs = mpdata->cfg_pp;
 	_dev_info(&pdev->dev, "max pp is %d\n", mpdata->scale_info.maxpp);
 
 	ret = of_property_read_u32(gpu_dn,"min_pp",
@@ -335,6 +339,7 @@ int mali_dt_info(struct platform_device *pdev, struct mali_plat_info_t *mpdata)
 	}
 
 	mpdata->cfg_clock_bkup = mpdata->cfg_clock;
+	mpdata->maxclk_sysfs = mpdata->cfg_clock;
 	mpdata->scale_info.maxclk = mpdata->cfg_clock;
 	_dev_info(&pdev->dev, "max clk  is %d\n", mpdata->scale_info.maxclk);
 
