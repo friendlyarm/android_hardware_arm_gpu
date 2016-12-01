@@ -121,7 +121,7 @@ LOCAL_MODULE_RELATIVE_PATH := hw
 ifeq ($(TARGET_BOARD_PLATFORM),)
 LOCAL_MODULE := gralloc.default
 else
-LOCAL_MODULE := gralloc.amlogic
+LOCAL_MODULE := gralloc.$(TARGET_DEVICE)
 endif
 
 LOCAL_MODULE_TAGS := optional
